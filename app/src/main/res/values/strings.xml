@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Nihon Taï Jitsu</string>
+
+    <string name="action_about">A propos</string>
+    <string name="action_about_copyright">NTJ v%1$s - 2021 copyleft\nContenu : Anne Sophie Luypaerts\nDev : Norbert Martin</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="home_label">Dojo</string>
+    <string name="question_label">Question</string>
+    <string name="continue_label">Persévérer</string>
+
+    <string name="home_workout_title">Révision hors du dojo</string>
+    <string name="home_invalide_level">Choisis le niveau préparé</string>
+    <string name="home_invalid_work_type">Choisis pratique, théorie ou les 2</string>
+    <string name="home_no_revision_available">Oups, aucun contenu disponible pour réviser</string>
+    <string name="home_goTraining">C\'est parti !</string>
+    <string-array name="belts">
+        <item name="level">Quelle ceinture prépares-tu ?</item>
+        <item name="white">Ceinture blanche</item>
+        <item name="yellow">Ceinture jaune</item>
+        <item name="orange">Ceinture orange</item>
+        <item name="green">Ceinture verte</item>
+        <item name="blue">Ceinture bleue</item>
+        <item name="brown">Ceinture marron</item>
+        <item name="black">Ceinture noire</item>
+    </string-array>
+    <string-array name="work_types">
+        <item name="level">Que souhaites-tu travailler ?</item>
+        <item name="practice">La pratique</item>
+        <item name="theory">La théorie</item>
+        <item name="both">La pratique et la théorie</item>
+    </string-array>
+
+    <string name="question_next">Question suivante</string>
+    <string name="question_see_answer">Voir la réponse</string>
+    <string name="question_no_answer_available">Pas de réponse disponible, il faut aller chercher par toi-même</string>
+
+    <string name="continue_training">Une ceinture noire est une ceinture blanche qui n\'a jamais abandonné</string>
+    <string name="continue_training_see_you_soon">A bientôt</string>
+    <string name="continue_training_congrats">Bravo révision terminée !</string>
+
+</resources>

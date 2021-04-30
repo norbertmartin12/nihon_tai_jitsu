@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home"
+    android:label="main_nav">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="org.ntj_workout.ChooseTrainingFragment"
+        android:label="@string/home_label"
+        tools:layout="@layout/fragment_choose_training">
+
+        <action
+            android:id="@+id/nav_to_question"
+            app:destination="@id/question" />
+    </fragment>
+    <fragment
+        android:id="@+id/question"
+        android:name="org.ntj_workout.QuestionFragment"
+        android:label="@string/question_label"
+        tools:layout="@layout/fragment_question">
+
+        <argument
+            android:name="revision"
+            app:argType="org.ntj_workout.data.Revision" />
+
+        <action
+            android:id="@+id/nav_to_continueTraining"
+            app:destination="@id/continueTraining" />
+    </fragment>
+    <fragment
+        android:id="@+id/continueTraining"
+        android:name="org.ntj_workout.ContinueTrainingFragment"
+        android:label="@string/continue_label"
+        tools:layout="@layout/fragment_continue_training">
+        <action
+            android:id="@+id/nav_to_home"
+            app:destination="@id/home"
+            />
+
+        <!-- HOT FIX : manage backpressed on last screen-->
+        <action
+            android:id="@+id/nav_to_continueTraining"
+            app:destination="@id/home" />
+    </fragment>
+</navigation>

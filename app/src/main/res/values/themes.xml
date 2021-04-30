@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.NTJWorkout" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/red_dark</item>
+        <item name="colorPrimaryDark">@color/red_dark</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColor">@color/red_dark</item>
+        <item name="fontFamily">sans-serif-black</item>
+    </style>
+
+    <style name="ColoredButton">
+        <item name="android:background">@color/red_dark</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Theme.NTJWorkout.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.NTJWorkout.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.NTJWorkout.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CursiveText">
+        <item name="fontFamily">cursive</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
