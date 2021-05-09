@@ -2,12 +2,17 @@ package org.ntj_workout;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.navigation.fragment.NavHostFragment;
@@ -24,7 +29,7 @@ public class ChooseTrainingFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_choose_training, container, false);
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         final Spinner levelSpinner = (Spinner) view.findViewById(R.id.spinner_level);
@@ -39,6 +44,8 @@ public class ChooseTrainingFragment extends Fragment {
         workTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         workTypeSpinner.setAdapter(workTypeAdapter);
 
+        final SwitchCompat keepScreenOnSwitch = (SwitchCompat) view.findViewById(R.id.switch_keep_screen_on);
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         view.findViewById(R.id.button_go_training).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,9 +67,16 @@ public class ChooseTrainingFragment extends Fragment {
                 }
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("revision", revision);
+
+                if (keepScreenOnSwitch.isChecked()) {
+                    getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                } else {
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                }
                 NavHostFragment.findNavController(ChooseTrainingFragment.this)
                         .navigate(R.id.nav_to_question, bundle);
             }
         });
     }
+
 }

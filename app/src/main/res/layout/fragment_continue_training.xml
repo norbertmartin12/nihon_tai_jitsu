@@ -29,7 +29,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerInside"
-                android:src="@drawable/tai_jitsu_art" />
+                android:src="@drawable/self_def"
+                android:layout_margin="16dp"
+                android:tint="@color/red_dark"
+                android:tintMode="screen"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -39,7 +42,7 @@
                 android:gravity="center"
                 android:text="@string/continue_training"
                 android:textSize="24sp"
-                android:theme="@style/CursiveText" />
+                android:theme="@style/CursiveColoredText" />
 
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v4.widget.NestedScrollView>

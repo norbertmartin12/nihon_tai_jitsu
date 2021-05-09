@@ -13,6 +13,7 @@
     <string name="home_invalide_level">Choisis le niveau préparé</string>
     <string name="home_invalid_work_type">Choisis pratique, théorie ou les 2</string>
     <string name="home_no_revision_available">Oups, aucun contenu disponible pour réviser</string>
+    <string name="keep_screen_on">Gardes l\'écran allumé</string>
     <string name="home_goTraining">C\'est parti !</string>
     <string-array name="belts">
         <item name="level">Quelle ceinture prépares-tu ?</item>
