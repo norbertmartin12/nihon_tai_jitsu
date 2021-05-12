@@ -1,15 +1,18 @@
 package org.ntj_workout;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
-import androidx.navigation.fragment.NavHostFragment;
+public class MainActivity extends AppCompatActivity implements NetworkReceiver.Callback {
 
-public class MainActivity extends AppCompatActivity {
+    private NetworkReceiver networkReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +20,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        this.networkReceiver = new NetworkReceiver(this);
+        registerReceiver(networkReceiver, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(networkReceiver);
     }
 
     @Override
@@ -41,4 +52,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void connectivityChanged(boolean hasConnectivity) {
+        if (hasConnectivity) {
+            findViewById(R.id.textView_offlineBanner).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.textView_offlineBanner).setVisibility(View.VISIBLE);
+        }
+    }
 }

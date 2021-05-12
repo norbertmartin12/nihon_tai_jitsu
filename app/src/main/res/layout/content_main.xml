@@ -5,6 +5,19 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    <TextView
+        android:id="@+id/textView_offlineBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow"
+        android:textColor="@color/red_dark"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingVertical="4dp"
+        android:paddingHorizontal="8dp"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:text="@string/offline_warn"/>
+
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -14,7 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_offlineBanner"
         app:navGraph="@navigation/nav_graph" />
 
 </android.support.constraint.ConstraintLayout>
