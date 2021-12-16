@@ -3,13 +3,13 @@ package org.ntj_workout;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import org.ntj_workout.data.Question;
@@ -48,24 +48,57 @@ public class QuestionFragment extends Fragment {
             return;
         }
         ((TextView) getView().findViewById(R.id.text_question)).setText(question.getLabel());
-        ((TextView) getView().findViewById(R.id.text_answer)).setText("");
+
+
+
+        final View answerView = view.findViewById(R.id.content_answer);
+        answerView.setVisibility(View.GONE);
+
+        TextView textAnswer = getView().findViewById(R.id.text_answer);
+        if (question.getTextAnswer() != null) {
+            textAnswer.setText(question.getTextAnswer());
+        } else if (!question.hasAnswer()){
+            textAnswer.setText(R.string.question_no_answer_available);
+        } else {
+            getView().findViewById(R.id.text_bloc).setVisibility(View.GONE);
+        }
+
+        View imageAnswer = getView().findViewById(R.id.image_answer);
+        if (question.getImageAnswer() == null) {
+            imageAnswer.setVisibility(View.GONE);
+        } else {
+            imageAnswer.setVisibility(View.VISIBLE);
+            imageAnswer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(question.getImageAnswer()));
+                    getActivity().startActivity(intent);
+                }
+            });
+        }
+
+        View videoAnswer = getView().findViewById(R.id.video_answer);
+        if (question.getVideoAnswer() == null) {
+            videoAnswer.setVisibility(View.GONE);
+        } else {
+            videoAnswer.setVisibility(View.VISIBLE);
+            videoAnswer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(question.getVideoAnswer()));
+                    getActivity().startActivity(intent);
+                }
+            });
+        }
+
 
         final View buttonShowAnswer = view.findViewById(R.id.button_view_answer);
         buttonShowAnswer.setVisibility(View.VISIBLE);
         buttonShowAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (question.getAnswer().startsWith("http")) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(question.getAnswer()));
-                    getActivity().startActivity(intent);
-                } else {
-                    buttonShowAnswer.setVisibility(View.GONE);
-                    if (question.getAnswer() == null || question.getAnswer().isEmpty()) {
-                        ((TextView) getView().findViewById(R.id.text_answer)).setText(R.string.question_no_answer_available);
-                    } else {
-                        ((TextView) getView().findViewById(R.id.text_answer)).setText(question.getAnswer());
-                    }
-                }
+                buttonShowAnswer.setVisibility(View.GONE);
+                answerView.setVisibility(View.VISIBLE);
             }
         });
     }
