@@ -1,18 +1,17 @@
 package org.ntj_workout;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.SwitchCompat;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.widget.SwitchCompat;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.navigation.fragment.NavHostFragment;
@@ -32,19 +31,19 @@ public class ChooseTrainingFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final Spinner levelSpinner = (Spinner) view.findViewById(R.id.spinner_level);
+        final Spinner levelSpinner = view.findViewById(R.id.spinner_level);
         ArrayAdapter<CharSequence> levelAdapter = ArrayAdapter.createFromResource(this.getContext(),
                 R.array.belts, android.R.layout.simple_spinner_dropdown_item);
         levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         levelSpinner.setAdapter(levelAdapter);
 
-        final Spinner workTypeSpinner = (Spinner) view.findViewById(R.id.spinner_work_type);
+        final Spinner workTypeSpinner = view.findViewById(R.id.spinner_work_type);
         ArrayAdapter<CharSequence> workTypeAdapter = ArrayAdapter.createFromResource(this.getContext(),
                 R.array.work_types, android.R.layout.simple_spinner_dropdown_item);
         workTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         workTypeSpinner.setAdapter(workTypeAdapter);
 
-        final SwitchCompat keepScreenOnSwitch = (SwitchCompat) view.findViewById(R.id.switch_keep_screen_on);
+        final SwitchCompat keepScreenOnSwitch = view.findViewById(R.id.switch_keep_screen_on);
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         view.findViewById(R.id.button_go_training).setOnClickListener(new View.OnClickListener() {
             @Override

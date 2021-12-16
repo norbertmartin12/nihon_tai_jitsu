@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.circularreveal.CircularRevealRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.circularreveal.CircularRevealRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,19 +13,19 @@
         android:text="@string/continue_training_congrats"
         android:textSize="24sp" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/button_go_home"
         android:layout_below="@id/text_congrats"
         android:layout_margin="8dp">
 
-        <android.support.v7.widget.LinearLayoutCompat
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerInside"
@@ -44,8 +44,8 @@
                 android:textSize="24sp"
                 android:theme="@style/CursiveColoredText" />
 
-        </android.support.v7.widget.LinearLayoutCompat>
-    </android.support.v4.widget.NestedScrollView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 
     <Button
         android:id="@+id/button_go_home"
@@ -55,4 +55,4 @@
         android:layout_alignParentBottom="true"
         android:text="@string/continue_training_see_you_soon" />
 
-</android.support.design.circularreveal.CircularRevealRelativeLayout>
+</com.google.android.material.circularreveal.CircularRevealRelativeLayout>
