@@ -10,9 +10,9 @@ android {
         applicationId "org.ntj_workout"
         minSdkVersion 24
         targetSdkVersion 31
-        versionCode 7
+        versionCode 8
 
-        versionName "0.7"
+        versionName "0.8"
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
