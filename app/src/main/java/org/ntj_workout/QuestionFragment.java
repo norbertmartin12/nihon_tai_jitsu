@@ -55,6 +55,7 @@ public class QuestionFragment extends Fragment {
         answerView.setVisibility(View.GONE);
 
         TextView textAnswer = getView().findViewById(R.id.text_answer);
+        getView().findViewById(R.id.text_bloc).setVisibility(View.VISIBLE);
         if (question.getTextAnswer() != null) {
             textAnswer.setText(question.getTextAnswer());
         } else if (!question.hasAnswer()){
