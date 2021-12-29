@@ -80,4 +80,8 @@ public class Question implements Serializable {
     public boolean hasAnswer() {
         return textAnswer != null || imageAnswer != null || videoAnswer != null;
     }
+
+    public boolean hasMediaAnswer() {
+        return imageAnswer != null || videoAnswer != null;
+    }
 }

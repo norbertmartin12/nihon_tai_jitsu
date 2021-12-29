@@ -49,7 +49,7 @@ public class Database {
         this.questionList.add(new Question(Level.BLACK,Type.PRACTICE,"Démontre le No Kata Godan","","",""));
         this.questionList.add(new Question(Level.BLACK,Type.PRACTICE,"Démontre le Ju Ni No Kata","","",""));
         this.questionList.add(new Question(Level.BLACK,Type.PRACTICE,"Démontre le Dai Ni No Kata","","",""));
-        this.questionList.add(new Question(Level.WHITE,Type.PRACTICE,"Démontre le Tai Sabaki No Kata","Voir la démonstration","","https://www.youtube.com/watch?v=4yMM05IvF1Y"));
+        this.questionList.add(new Question(Level.WHITE,Type.PRACTICE,"Démontre le Tai Sabaki No Kata","Voilà une démo (source: youtube)","","https://www.youtube.com/watch?v=4yMM05IvF1Y"));
         this.questionList.add(new Question(Level.YELLOW,Type.PRACTICE,"Démontre le nouage de la ceinture et la bonne présentation du keikogi","","",""));
         this.questionList.add(new Question(Level.YELLOW,Type.PRACTICE,"Démontre le salut debout et le salut à genou","","",""));
         this.questionList.add(new Question(Level.YELLOW,Type.THEORY,"Quels sont les ordres japonais entendus pendant le cours et leur signification","","",""));
@@ -82,7 +82,7 @@ public class Database {
         this.questionList.add(new Question(Level.YELLOW,Type.PRACTICE,"Démontre MOROTE UKE","Défense double, bras arrière en protection","",""));
         this.questionList.add(new Question(Level.YELLOW,Type.THEORY,"Que signifie ATEMI ?","Coup frappé par une partie du corps","",""));
         this.questionList.add(new Question(Level.YELLOW,Type.THEORY,"Que signifie ATEMI WAZA ?","Technique de coup (frappé par une partie du corps)","",""));
-        this.questionList.add(new Question(Level.YELLOW,Type.PRACTICE,"Démontre la position YOI","Un dessin vaut mieux qu'une longue description","https://ecolekaratemarais.fr/wp-content/uploads/2020/05/Yoi.jpg",""));
+        this.questionList.add(new Question(Level.YELLOW,Type.PRACTICE,"Démontre la position YOI","Un dessin vaut mieux qu'une longue description (source: image internet)","https://ecolekaratemarais.fr/wp-content/uploads/2020/05/Yoi.jpg",""));
         this.questionList.add(new Question(Level.YELLOW,Type.PRACTICE,"Démontre un demi tour","","",""));
         this.questionList.add(new Question(Level.YELLOW,Type.PRACTICE,"Démontre les 8 TAI SABAKI avec parade et riposte","","",""));
         this.questionList.add(new Question(Level.YELLOW,Type.THEORY,"Que signifie UKEMI ?","Chute","",""));
@@ -102,7 +102,7 @@ public class Database {
         this.questionList.add(new Question(Level.BLUE,Type.PRACTICE,"Réalise un randori de technique au sol de maximum 1'30. Avec un partenaire les deux attaquent et défendent alternativement. Seul, démontre la même chose (technique du shadow)","","",""));
         this.questionList.add(new Question(Level.BROWN,Type.THEORY,"Qu'est ce qu'un KIHON IPPON KUMITE ?","Le Kihon Ippon Kumite est un assaut conventionnel basé sur une attaque contrée par une seule défense et ou contre-attaque. Il est composé des 5 attaques : Shuto Shomen Uchi ; Oi tsuki chudan ; Mae geri ; Mawashi geri chudan ; Yoko geri chudan. Cet assaut se déroule de la manière suivante : Les deux candidats sont placés à une distance de 1 mètre l’un de l’autre et de profil par rapport au jury ; Uke se met en garde mixte à gauche pour les attaques à droite puis à droite pour les attaques à gauche ; Tori reste en position yoi ; Uke annonce son attaque et après un moment de concentration, lance celle-ci avec le plus de conviction et de détermination possible ; Tori effectue une technique de défense simple par atemi, luxation, projection ou strangulation. Après chaque attaque, Tori se repositionne en position yoi et Uke en position de garde prêt à effectuer une autre attaque. Uke effectuera les 5 attaques à droite puis les 5 attaques à gauche. L’attaque s’effectuera toujours avec le bras ou la jambe arrière.","",""));
         this.questionList.add(new Question(Level.BROWN,Type.PRACTICE,"Démontre un KIHON IPPON KUMITE. Seul, démontre les attaques et les défenses en méthode shadow","","",""));
-        this.questionList.add(new Question(Level.YELLOW,Type.PRACTICE,"Démontre la position HACHIJI DACHI","","https://drive.google.com/file/d/172c9A0GCUnp36MKm8pD4SCQri1ixwtxQ/view?usp=sharing",""));
+        this.questionList.add(new Question(Level.YELLOW,Type.PRACTICE,"Démontre la position HACHIJI DACHI","Un dessin vaut mieux qu'une longue description (source: image drive)","https://drive.google.com/uc?export=view&id=172c9A0GCUnp36MKm8pD4SCQri1ixwtxQ",""));
 
         this.questionList = Collections.unmodifiableList(this.questionList);
 
