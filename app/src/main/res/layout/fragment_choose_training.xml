@@ -58,6 +58,20 @@
         </androidx.core.widget.NestedScrollView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <TextView
+        android:id="@+id/textView_offlineBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:textColor="@color/red_dark"
+        android:layout_above="@id/button_go_training"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="8dp"
+        android:textSize="14sp"
+        android:textAlignment="textStart"
+        android:text="@string/data_warn"/>
+
+
     <Button
         android:id="@+id/button_go_training"
         style="@style/ColoredButton"

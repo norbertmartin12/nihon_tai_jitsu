@@ -5,20 +5,27 @@ import java.util.List;
 
 public class Revision implements Serializable {
 
-    private List<Question> iterator;
+    private List<Question> list;
     private int index;
     private Question currentQuestion;
 
-    public Revision(List<Question> iterator) {
-        this.iterator = iterator;
-        this.index = 0;
+    public Revision(List<Question> list) {
+        this.list = list;
+        this.index = -1;
     }
 
     public Question next() {
-        if (this.index >= this.iterator.size()) {
+        if (this.index + 1 == this.list.size()) {
             return this.currentQuestion = null;
         }
-        return this.currentQuestion = this.iterator.get(this.index++);
+        return this.currentQuestion = this.list.get(++this.index);
+    }
+
+    public Question previous() {
+        if (this.index - 1 < 0) {
+            return this.currentQuestion = null;
+        }
+        return this.currentQuestion = this.list.get(--this.index);
     }
 
     public Question getCurrentQuestion() {

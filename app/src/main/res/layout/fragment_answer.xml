@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.circularreveal.CircularRevealRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AnswerFragment">
+
+    <TextView
+        android:id="@+id/text_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textSize="24sp" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/text_question"
+        android:layout_above="@id/button_show_next_question">
+
+        <com.google.android.material.circularreveal.CircularRevealRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="24dp">
+
+            <TextView
+                android:id="@+id/text_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginVertical="8dp"
+                android:textSize="16sp" />
+
+            <WebView
+                android:id="@+id/web_view_media"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/text_answer"
+                android:layout_centerInParent="true" />
+
+        </com.google.android.material.circularreveal.CircularRevealRelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <ImageButton
+        android:id="@+id/media_out_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_show_next_question"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/red_dark"
+        android:contentDescription="@string/see_media_out"
+        android:minHeight="48dp"
+        android:minWidth="48dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_open_in_new_24"
+        app:tint="@color/white" />
+
+    <Button
+        android:id="@+id/button_show_next_question"
+        style="@style/ColoredButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/question_next" />
+</com.google.android.material.circularreveal.CircularRevealRelativeLayout>
+

@@ -1,11 +1,6 @@
 package org.ntj_workout;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.widget.SwitchCompat;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import org.ntj_workout.data.Database;
@@ -52,28 +51,28 @@ public class ChooseTrainingFragment extends Fragment {
                 int type = workTypeSpinner.getSelectedItemPosition() - 1;
 
                 if (level == -1) {
-                    Toast.makeText(getContext(), R.string.home_invalide_level, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.home_invalid_level, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (type == -1) {
                     Toast.makeText(getContext(), R.string.home_invalid_work_type, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Revision revision = new Database().init().start(Level.values()[level], Type.values()[type]);
-                if (revision == null) {
-                    Toast.makeText(getContext(), R.string.home_no_revision_available, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("revision", revision);
-
                 if (keepScreenOnSwitch.isChecked()) {
                     getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                 } else {
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                 }
-                NavHostFragment.findNavController(ChooseTrainingFragment.this)
-                        .navigate(R.id.nav_to_question, bundle);
+
+                Revision revision = new Database().init().start(Level.values()[level], Type.values()[type]);
+                if (revision == null) {
+                    Toast.makeText(getContext(), R.string.home_no_revision_available, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                revision.next();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("revision", revision);
+                NavHostFragment.findNavController(ChooseTrainingFragment.this).navigate(R.id.nav_home_to_question, bundle);
             }
         });
     }

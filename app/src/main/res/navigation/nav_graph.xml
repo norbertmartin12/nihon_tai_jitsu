@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/home"
-    android:label="main_nav">
+    android:label="main_nav"
+    app:startDestination="@id/home">
 
     <fragment
         android:id="@+id/home"
@@ -13,7 +13,7 @@
         tools:layout="@layout/fragment_choose_training">
 
         <action
-            android:id="@+id/nav_to_question"
+            android:id="@+id/nav_home_to_question"
             app:destination="@id/question" />
     </fragment>
     <fragment
@@ -27,8 +27,33 @@
             app:argType="org.ntj_workout.data.Revision" />
 
         <action
-            android:id="@+id/nav_to_continueTraining"
+            android:id="@+id/nav_question_to_answer"
+            app:destination="@id/answer" />
+        <action
+            android:id="@+id/nav_question_to_continueTraining"
             app:destination="@id/continueTraining" />
+        <action
+            android:id="@+id/nav_question_self"
+            app:destination="@id/question" />
+        <action
+            android:id="@+id/nav_question_to_home"
+            app:destination="@id/home" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/answer"
+        android:name="org.ntj_workout.AnswerFragment"
+        android:label="@string/answer_label"
+        tools:layout="@layout/fragment_answer">
+
+        <argument
+            android:name="revision"
+            app:argType="org.ntj_workout.data.Revision" />
+
+        <action
+            android:id="@+id/nav_answer_to_question"
+            app:destination="@id/question" />
+
     </fragment>
     <fragment
         android:id="@+id/continueTraining"
@@ -36,13 +61,7 @@
         android:label="@string/continue_label"
         tools:layout="@layout/fragment_continue_training">
         <action
-            android:id="@+id/nav_to_home"
-            app:destination="@id/home"
-            />
-
-        <!-- HOT FIX : manage backpressed on last screen-->
-        <action
-            android:id="@+id/nav_to_continueTraining"
+            android:id="@+id/nav_continue_training_to_home"
             app:destination="@id/home" />
     </fragment>
 </navigation>
