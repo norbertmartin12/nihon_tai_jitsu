@@ -2,7 +2,9 @@
     <string name="app_name">Nihon Taï Jitsu</string>
 
     <string name="action_about">A propos</string>
-    <string name="action_about_copyright">v%1$s - 2022 copyleft\nContenu : Anne Sophie Luypaerts\nDev : Norbert Martin</string>
+    <string name="action_about_copyright">v%1$s - 2022 copyleft\nIdée : Anne Sophie Luypaerts\nContenu : Fédération NTJ\nDev : Norbert Martin</string>
+    <string name="action_about_data">Utilisation des données</string>
+    <string name="action_about_data_warn">Les réponses avec contenu multimédia consomment des data, selon votre situation des frais peuvent s\'appliquer</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="home_label">Dojo</string>
@@ -38,10 +40,10 @@
     <string name="question_no_answer_available">Pas de réponse disponible, il faut aller chercher par toi-même</string>
 
     <string name="continue_training">Une ceinture noire est une ceinture blanche qui n\'a jamais abandonné</string>
+    <string name="training_practice_warning">Cette application est une aide mémoire, il est nécessaire de pratiquer sous la responsabilité d\'un enseignant diplômé</string>
     <string name="continue_training_see_you_soon">A bientôt</string>
     <string name="continue_training_congrats">Bravo révision terminée !</string>
     <string name="offline_warn">\u26A0 HORS LIGNE \u26A0\ncertaines réponses seront inaccessibles</string>
-    <string name="data_warn">\u24D8 Les réponses avec contenu multimédia consomment des data, selon votre situation des frais peuvent s\'appliquer</string>
     <string name="see_media_out">Voir hors de l\'application</string>
 
 </resources>

@@ -9,9 +9,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentContainerView;
-
-import org.ntj_workout.data.Revision;
 
 public class MainActivity extends AppCompatActivity implements NetworkReceiver.Callback {
 
@@ -43,7 +40,10 @@ public class MainActivity extends AppCompatActivity implements NetworkReceiver.C
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_about) {
-            Toast.makeText(this, this.getString(R.string.action_about_copyright, BuildConfig.VERSION_NAME), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.action_about_copyright, BuildConfig.VERSION_NAME), Toast.LENGTH_LONG).show();
+            return true;
+        }   else if (id == R.id.action_about_data) {
+            Toast.makeText(this, R.string.action_about_data_warn, Toast.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

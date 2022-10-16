@@ -33,7 +33,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="24dp"
                     android:layout_marginVertical="4dp"
-                    android:entries="@array/belts" />
+                    android:entries="@array/belts"
+                    android:minHeight="48dp" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/spinner_work_type"
@@ -41,7 +42,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="24dp"
                     android:layout_marginVertical="4dp"
-                    android:entries="@array/work_types" />
+                    android:entries="@array/work_types"
+                    android:minHeight="48dp" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_keep_screen_on"
@@ -49,27 +51,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="24dp"
-                    android:layout_marginVertical="16dp"
+                    android:layout_marginVertical="4dp"
                     android:checked="false"
+                    android:minHeight="48dp"
                     android:paddingHorizontal="8dp"
                     android:text="@string/keep_screen_on" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="8dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/training_practice_warning"
+                    android:textSize="14sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.core.widget.NestedScrollView>
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <TextView
-        android:id="@+id/textView_offlineBanner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:textColor="@color/red_dark"
-        android:layout_above="@id/button_go_training"
-        android:paddingVertical="8dp"
-        android:paddingHorizontal="8dp"
-        android:textSize="14sp"
-        android:textAlignment="textStart"
-        android:text="@string/data_warn"/>
 
 
     <Button

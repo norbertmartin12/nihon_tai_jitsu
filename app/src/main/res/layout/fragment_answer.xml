@@ -13,16 +13,13 @@
         android:layout_margin="8dp"
         android:textSize="24sp" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/text_question"
-        android:layout_above="@id/button_show_next_question">
-
         <com.google.android.material.circularreveal.CircularRevealRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="24dp">
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="24dp"
+            android:layout_below="@id/text_question"
+            android:layout_above="@id/media_out_link">
 
             <TextView
                 android:id="@+id/text_answer"
@@ -37,10 +34,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/text_answer"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:nestedScrollingEnabled="true"/>
 
         </com.google.android.material.circularreveal.CircularRevealRelativeLayout>
-    </androidx.core.widget.NestedScrollView>
 
     <ImageButton
         android:id="@+id/media_out_link"
