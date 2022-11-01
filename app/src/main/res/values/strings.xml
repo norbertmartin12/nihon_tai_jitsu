@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nihon Taï Jitsu</string>
+    <string name="app_name">Nihon Tai Jitsu</string>
 
     <string name="action_about">A propos</string>
     <string name="action_about_copyright">v%1$s - 2022 copyleft\nIdée : Anne Sophie Luypaerts\nContenu : Fédération NTJ\nDev : Norbert Martin</string>
