@@ -10,7 +10,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -34,6 +33,7 @@ public class AnswerFragment extends Fragment {
 
         Question question = this.revision.getCurrentQuestion();
         ((TextView) getView().findViewById(R.id.text_question)).setText(question.getLabel());
+        ((TextView) getView().findViewById(R.id.text_question_id)).setText("#" + question.getId());
 
         final TextView textAnswer = getView().findViewById(R.id.text_answer);
         textAnswer.setVisibility(View.VISIBLE);
@@ -60,21 +60,15 @@ public class AnswerFragment extends Fragment {
 
             if (question.getImageAnswer() != null) {
                 mediaWebView.loadUrl(question.getImageAnswer());
-                mediaOutLink.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(question.getImageAnswer()));
-                        getActivity().startActivity(intent);
-                    }
+                mediaOutLink.setOnClickListener(mediaOutLinkView -> {
+                    Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(question.getImageAnswer()));
+                    getActivity().startActivity(intent);
                 });
             } else if (question.getVideoAnswer() != null) {
                 mediaWebView.loadUrl(question.getVideoAnswer());
-                mediaOutLink.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(question.getVideoAnswer()));
-                        getActivity().startActivity(intent);
-                    }
+                mediaOutLink.setOnClickListener(mediaOutLinkView -> {
+                    Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(question.getVideoAnswer()));
+                    getActivity().startActivity(intent);
                 });
             }
         } else {
@@ -82,16 +76,13 @@ public class AnswerFragment extends Fragment {
             mediaOutLink.setVisibility(View.GONE);
         }
 
-        getView().findViewById(R.id.button_show_next_question).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View buttonView) {
-                mediaWebView.onPause();
-                mediaWebView.stopLoading();
-                revision.next();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("revision", revision);
-                NavHostFragment.findNavController(AnswerFragment.this).navigate(R.id.nav_answer_to_question, bundle);
-            }
+        getView().findViewById(R.id.button_show_next_question).setOnClickListener(buttonView -> {
+            mediaWebView.onPause();
+            mediaWebView.stopLoading();
+            revision.next();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("revision", revision);
+            NavHostFragment.findNavController(AnswerFragment.this).navigate(R.id.nav_answer_to_question, bundle);
         });
     }
 }

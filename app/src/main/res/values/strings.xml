@@ -20,7 +20,6 @@
     <string name="home_goTraining">C\'est parti !</string>
     <string-array name="belts">
         <item name="level">Quelle ceinture prépares-tu ?</item>
-        <item name="white">Ceinture blanche</item>
         <item name="yellow">Ceinture jaune</item>
         <item name="orange">Ceinture orange</item>
         <item name="green">Ceinture verte</item>

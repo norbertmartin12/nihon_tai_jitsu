@@ -50,15 +50,13 @@ public class QuestionFragment extends Fragment {
             return;
         }
 
+        ((TextView) getView().findViewById(R.id.text_question_id)).setText("#" + question.getId());
         ((TextView) getView().findViewById(R.id.text_question)).setText(question.getLabel());
 
-        getView().findViewById(R.id.button_show_answer).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("revision", revision);
-                NavHostFragment.findNavController(QuestionFragment.this).navigate(R.id.nav_question_to_answer, bundle);
-            }
+        getView().findViewById(R.id.button_show_answer).setOnClickListener(buttonView -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("revision", revision);
+            NavHostFragment.findNavController(QuestionFragment.this).navigate(R.id.nav_question_to_answer, bundle);
         });
     }
 

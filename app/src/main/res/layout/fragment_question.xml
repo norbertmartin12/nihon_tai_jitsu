@@ -12,6 +12,15 @@
         android:layout_margin="8dp"
         android:textSize="24sp" />
 
+    <TextView
+        android:id="@+id/text_question_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/button_show_answer"
+        android:textSize="12sp" />
+
     <Button
         android:id="@+id/button_show_answer"
         style="@style/ColoredButton"
