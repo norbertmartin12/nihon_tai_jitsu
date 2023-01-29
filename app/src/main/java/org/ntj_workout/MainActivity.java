@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -51,11 +50,18 @@ public class MainActivity extends AppCompatActivity implements NetworkReceiver.C
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (id == R.id.action_about) {
-            Toast.makeText(this, this.getString(R.string.action_about_copyright, BuildConfig.VERSION_NAME), Toast.LENGTH_LONG).show();
+            Snackbar snackbar = Snackbar.make(toolbar, this.getString(R.string.action_about_copyright, BuildConfig.VERSION_NAME), Snackbar.LENGTH_LONG);
+            snackbar.getView().setBackgroundColor(Color.YELLOW);
+            snackbar.setTextMaxLines(3);
+            snackbar.show();
             return true;
         } else if (id == R.id.action_about_data) {
-            Toast.makeText(this, R.string.action_about_data_warn, Toast.LENGTH_LONG).show();
+            Snackbar snackbar = Snackbar.make(toolbar,  R.string.action_about_data_warn, Snackbar.LENGTH_LONG);
+            snackbar.getView().setBackgroundColor(Color.YELLOW);
+            snackbar.setTextMaxLines(3);
+            snackbar.show();
             return true;
         }
         return super.onOptionsItemSelected(item);

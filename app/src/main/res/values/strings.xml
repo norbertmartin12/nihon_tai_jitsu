@@ -4,7 +4,7 @@
     <string name="i_restart">Je recommence</string>
 
     <string name="action_about">A propos</string>
-    <string name="action_about_copyright">v%1$s - 2022 copyleft\nIdée : Anne Sophie Luypaerts\nContenu : Fédération NTJ\nDev : Norbert Martin</string>
+    <string name="action_about_copyright">v%1$s - 2022 copyleft - Idée : Anne Sophie Luypaerts - Contenu : Fédération NTJ - Dev : Norbert Martin</string>
     <string name="action_about_data">Utilisation des données</string>
     <string name="action_about_data_warn">Les réponses avec contenu multimédia consomment des data, selon votre situation des frais peuvent s\'appliquer</string>
 
