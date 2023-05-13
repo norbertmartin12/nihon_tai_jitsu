@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,7 +20,7 @@ import org.ntj_workout.data.Level;
 import org.ntj_workout.data.Revision;
 import org.ntj_workout.data.Type;
 
-public class ChooseTrainingFragment extends Fragment {
+public class ChooseTrainingFragment extends Fragment implements Database.Initiator {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,6 +29,8 @@ public class ChooseTrainingFragment extends Fragment {
 
     public void onViewCreated(@NonNull final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Database database = new Database().init(this);
 
         final Spinner levelSpinner = view.findViewById(R.id.spinner_level);
         ArrayAdapter<CharSequence> levelAdapter = ArrayAdapter.createFromResource(this.getContext(),
@@ -43,7 +46,10 @@ public class ChooseTrainingFragment extends Fragment {
 
         final SwitchCompat keepScreenOnSwitch = view.findViewById(R.id.switch_keep_screen_on);
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        view.findViewById(R.id.button_go_training).setOnClickListener(new View.OnClickListener() {
+
+        final Button goTrainingButton = view.findViewById(R.id.button_go_training);
+        goTrainingButton.setVisibility(View.INVISIBLE);
+        goTrainingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int level = levelSpinner.getSelectedItemPosition() - 1;
@@ -63,7 +69,7 @@ public class ChooseTrainingFragment extends Fragment {
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                 }
 
-                Revision revision = new Database().init().start(Level.values()[level], Type.values()[type]);
+                Revision revision = database.start(Level.values()[level], Type.values()[type]);
                 if (revision == null) {
                     Toast.makeText(getContext(), R.string.home_no_revision_available, Toast.LENGTH_SHORT).show();
                     return;
@@ -74,6 +80,12 @@ public class ChooseTrainingFragment extends Fragment {
                 NavHostFragment.findNavController(ChooseTrainingFragment.this).navigate(R.id.nav_home_to_question, bundle);
             }
         });
+    }
+
+    @Override
+    public void loaded(Database database) {
+        Button goTrainingButton = this.getActivity().findViewById(R.id.button_go_training);
+        this.getActivity().runOnUiThread(() ->  goTrainingButton.setVisibility(View.VISIBLE));
     }
 
 }
