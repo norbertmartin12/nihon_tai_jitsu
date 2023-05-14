@@ -1,5 +1,6 @@
 package org.ntj_workout.data;
 
+import android.net.ConnectivityManager;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -21,10 +22,12 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Database {
 
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadExecutor();
     private List<Question> questionList;
+    private String initDescription;
 
-    public Database init(final Initiator initiator) {
-        loadQuestionList(initiator);
+    public Database init(Initiator initiator, ConnectivityManager connectivityManager) {
+        loadQuestionList(initiator, connectivityManager);
         return this;
     }
 
@@ -48,30 +51,39 @@ public class Database {
         return new Revision(newList);
     }
 
-    private void loadQuestionList(final Initiator initiator) {
+    private void loadQuestionList(final Initiator initiator, ConnectivityManager connectivityManager) {
         if (this.questionList != null && !this.questionList.isEmpty()) {
             initiator.loaded(this);
             return;
         }
 
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.submit(() -> {
-            List<Question> list = getOnlineQuestionList();
+        final boolean isActiveNetworkNonMetered = !connectivityManager.isActiveNetworkMetered();
+        EXECUTOR_SERVICE.submit(() -> {
+            List<Question> list = null;
+            if (isActiveNetworkNonMetered) {
+                list = parseJsonQuestionList(getOnlineQuestionJson());
+                initDescription = "online - " + list.size() + " questions";
+            }
             if (list == null || list.isEmpty()) {
                 list = getOfflineQuestionList();
+                initDescription = "offline - " + list.size() + " questions";
             }
             this.questionList = Collections.unmodifiableList(list);
             initiator.loaded(this);
         });
-        executorService.shutdown();
     }
 
-    private static List<Question> getOnlineQuestionList() {
+    private static JSONObject getOnlineQuestionJson() {
         String sheetsUrl = "https://sheets.googleapis.com/v4/spreadsheets/1ymOsztjiYsp3w9OS4XdOGtqcJQyHXiRPpR8jmrWTFOg/values/human?alt=json&key=AIzaSyBO4GJYpO_kRby3sle3HE10u3967eJN0KA";
         HttpsURLConnection urlConnection = null;
         JSONObject jsonObject = null;
         try {
             urlConnection = (HttpsURLConnection) new URL(sheetsUrl).openConnection();
+            urlConnection.setConnectTimeout(500);
+            urlConnection.setReadTimeout(500);
+            urlConnection.setDoOutput(false);
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("Connection", "close");
             urlConnection.connect();
             jsonObject = new JSONObject(new BufferedReader(new InputStreamReader(urlConnection.getInputStream())).lines().collect(Collectors.joining()));
         } catch (IOException | JSONException e) {
@@ -81,14 +93,20 @@ public class Database {
                 urlConnection.disconnect();
             }
         }
+        return jsonObject;
+    }
 
+    private static List<Question> parseJsonQuestionList(JSONObject jsonObject) {
+        if (jsonObject == null) {
+            return Collections.emptyList();
+        }
         List<Question> loadedQuestionList = new LinkedList<>();
         try {
             JSONArray valuesArray = jsonObject.getJSONArray("values");
             for (int i = 1; i < valuesArray.length(); i++) {
                 JSONArray line = valuesArray.getJSONArray(i);
                 int id = line.getInt(0);
-                Type type = null;
+                Type type;
                 {
                     String stringType = line.getString(1);
                     switch (stringType.toLowerCase()) {
@@ -103,7 +121,7 @@ public class Database {
                             continue;
                     }
                 }
-                Level level = null;
+                Level level;
                 {
                     String stringLevel = line.getString(2);
                     switch (stringLevel.toLowerCase()) {
@@ -361,6 +379,9 @@ public class Database {
         return localQuestionList;
     }
 
+    public String getInitDescription(){
+        return initDescription;
+    }
     public interface Initiator {
         void loaded(Database database);
     }
