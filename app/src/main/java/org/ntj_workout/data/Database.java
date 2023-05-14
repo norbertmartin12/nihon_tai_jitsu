@@ -1,5 +1,6 @@
 package org.ntj_workout.data;
 
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.util.Log;
 
@@ -8,10 +9,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -23,11 +30,12 @@ import javax.net.ssl.HttpsURLConnection;
 public class Database {
 
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadExecutor();
+    public static final String LOCAL_CACHE_JSON = "localCache.json";
     private List<Question> questionList;
     private String initDescription;
 
-    public Database init(Initiator initiator, ConnectivityManager connectivityManager) {
-        loadQuestionList(initiator, connectivityManager);
+    public Database init(Initiator initiator, Context context) {
+        loadQuestionList(initiator, context);
         return this;
     }
 
@@ -51,26 +59,62 @@ public class Database {
         return new Revision(newList);
     }
 
-    private void loadQuestionList(final Initiator initiator, ConnectivityManager connectivityManager) {
+    private void loadQuestionList(final Initiator initiator, Context context) {
         if (this.questionList != null && !this.questionList.isEmpty()) {
             initiator.loaded(this);
             return;
         }
-
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         final boolean isActiveNetworkNonMetered = !connectivityManager.isActiveNetworkMetered();
         EXECUTOR_SERVICE.submit(() -> {
-            List<Question> list = null;
+            JSONObject jsonObject = null;
+            String loadingMode = null;
             if (isActiveNetworkNonMetered) {
-                list = parseJsonQuestionList(getOnlineQuestionJson());
-                initDescription = "online - " + list.size() + " questions";
+                jsonObject = getOnlineQuestionJson();
+                loadingMode = "online";
+                try {
+                    saveAsLocalCache(context, jsonObject);
+                } catch (IOException e) {
+                    Log.e("data_pull", "saveAsLocalCache fails: " + e.getLocalizedMessage());
+                }
             }
-            if (list == null || list.isEmpty()) {
+            if (jsonObject == null) {
+                try {
+                    jsonObject = readLocalCache(context);
+                    loadingMode = "online-cache [" + getLocalCacheLastModified(context) + "]";
+                } catch (FileNotFoundException | JSONException e) {
+                    Log.e("data_pull", "readLocalCache fails: " + e.getLocalizedMessage());
+                }
+            }
+
+            List<Question> list = parseJsonQuestionList(jsonObject);
+            if (list.isEmpty()) {
                 list = getOfflineQuestionList();
-                initDescription = "offline - " + list.size() + " questions";
+                loadingMode = "embedded";
             }
+            initDescription = loadingMode + " - " +  list.size() + " questions";
             this.questionList = Collections.unmodifiableList(list);
             initiator.loaded(this);
         });
+    }
+
+    private void saveAsLocalCache(Context context, JSONObject jsonObject) throws IOException {
+        if (jsonObject == null) {
+            return;
+        }
+        File localCache = new File(context.getNoBackupFilesDir(), LOCAL_CACHE_JSON);
+        FileOutputStream fileOutputStream = new FileOutputStream(localCache);
+        fileOutputStream.write(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+        fileOutputStream.close();
+    }
+
+    private JSONObject readLocalCache(Context context) throws FileNotFoundException, JSONException {
+        File localCache = new File(context.getNoBackupFilesDir(), LOCAL_CACHE_JSON);
+        return new JSONObject(new BufferedReader(new FileReader(localCache)).lines().collect(Collectors.joining()));
+    }
+    private Date getLocalCacheLastModified(Context context) {
+        File localCache = new File(context.getNoBackupFilesDir(), LOCAL_CACHE_JSON);
+        return new Date (localCache.lastModified());
     }
 
     private static JSONObject getOnlineQuestionJson() {
@@ -79,15 +123,15 @@ public class Database {
         JSONObject jsonObject = null;
         try {
             urlConnection = (HttpsURLConnection) new URL(sheetsUrl).openConnection();
-            urlConnection.setConnectTimeout(500);
-            urlConnection.setReadTimeout(500);
+            urlConnection.setConnectTimeout(5000);
+            urlConnection.setReadTimeout(5000);
             urlConnection.setDoOutput(false);
             urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("Connection", "close");
             urlConnection.connect();
             jsonObject = new JSONObject(new BufferedReader(new InputStreamReader(urlConnection.getInputStream())).lines().collect(Collectors.joining()));
         } catch (IOException | JSONException e) {
-            Log.e("data_pull", e.getLocalizedMessage());
+            Log.e("getOnlineQuestionJson", e.getLocalizedMessage());
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -379,9 +423,10 @@ public class Database {
         return localQuestionList;
     }
 
-    public String getInitDescription(){
+    public String getInitDescription() {
         return initDescription;
     }
+
     public interface Initiator {
         void loaded(Database database);
     }

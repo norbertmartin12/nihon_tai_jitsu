@@ -1,7 +1,5 @@
 package org.ntj_workout;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +33,7 @@ public class ChooseTrainingFragment extends Fragment implements Database.Initiat
     }
 
     private void showView (@NonNull final View view, Bundle savedInstanceState) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        Database database = new Database().init(this, connectivityManager);
+        Database database = new Database().init(this, requireContext());
 
         final Spinner levelSpinner = view.findViewById(R.id.spinner_level);
         ArrayAdapter<CharSequence> levelAdapter = ArrayAdapter.createFromResource(this.getContext(),
