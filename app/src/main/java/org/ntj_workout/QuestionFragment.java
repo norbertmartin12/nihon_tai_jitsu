@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -50,8 +51,15 @@ public class QuestionFragment extends Fragment {
             return;
         }
 
-        ((TextView) getView().findViewById(R.id.text_question_id)).setText("#" + question.getId());
+        String questionId = "#" + question.getId();
+        ((TextView) getView().findViewById(R.id.text_question_id)).setText(questionId);
         ((TextView) getView().findViewById(R.id.text_question)).setText(question.getLabel());
+        ProgressBar progressBar = ((ProgressBar) getView().findViewById(R.id.progress_bar));
+        progressBar.setProgress(revision.currentIndex());
+        progressBar.setMax(revision.size());
+
+        String progressText = Math.round((double)revision.currentIndex() / revision.size() * 100)+ "%";
+        ((TextView) getView().findViewById(R.id.text_progress)).setText(progressText);
 
         getView().findViewById(R.id.button_show_answer).setOnClickListener(buttonView -> {
             Bundle bundle = new Bundle();

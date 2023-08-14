@@ -31,4 +31,11 @@ public class Revision implements Serializable {
     public Question getCurrentQuestion() {
         return this.currentQuestion;
     }
+
+    public int size() {
+        return list.size();
+    }
+    public int currentIndex() {
+        return index;
+    }
 }
