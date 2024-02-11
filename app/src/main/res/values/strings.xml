@@ -18,6 +18,7 @@
     <string name="home_invalid_level">Choisis le niveau préparé</string>
     <string name="home_invalid_work_type">Choisis pratique, théorie ou les 2</string>
     <string name="home_no_revision_available">Oups, aucun contenu disponible pour réviser</string>
+    <string name="home_invalid_unlock_code">Ce n\'est pas le bon code, rapproches-toi de ton club</string>
     <string name="keep_screen_on">Empêcher la veille de l\'écran</string>
     <string name="home_goTraining">C\'est parti !</string>
     <string-array name="belts">
@@ -42,6 +43,8 @@
 
     <string name="continue_training">Une ceinture noire est une ceinture blanche qui n\'a jamais abandonné</string>
     <string name="training_practice_warning">Cette application est une aide mémoire, il est nécessaire de pratiquer sous la responsabilité d\'un enseignant diplômé</string>
+    <string name="unlock_code">Code déverrouillage</string>
+    <string name="validate">Valider</string>
     <string name="continue_training_see_you_soon">A bientôt</string>
     <string name="continue_training_congrats">Bravo révision terminée !</string>
     <string name="offline_warn">\u26A0 HORS LIGNE \u26A0\ncertaines réponses seront inaccessibles</string>

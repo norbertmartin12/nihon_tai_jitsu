@@ -2,6 +2,10 @@ plugins {
     id 'com.android.application'
 }
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
 
     namespace 'org.ntj_workout'
@@ -15,6 +19,8 @@ android {
         versionCode 15
         versionName "1.1-alpha"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        buildConfigField("String", "OPEN_KEY", apikeyProperties['OPEN_KEY'])
     }
 
     buildTypes {
