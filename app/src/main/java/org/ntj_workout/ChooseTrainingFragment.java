@@ -1,7 +1,5 @@
 package org.ntj_workout;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,9 +22,10 @@ import org.ntj_workout.data.Level;
 import org.ntj_workout.data.Revision;
 import org.ntj_workout.data.Type;
 
+import java.util.Calendar;
+
 public class ChooseTrainingFragment extends Fragment implements Database.Initiator {
 
-    public static final String PREF_APP_UNLOCKED = "APP_UNLOCKED";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,15 +38,15 @@ public class ChooseTrainingFragment extends Fragment implements Database.Initiat
     }
 
     private void showView (@NonNull final View view) {
-        SharedPreferences appPreferences = this.requireActivity().getPreferences(Context.MODE_PRIVATE);
         final Button goTrainingButton = view.findViewById(R.id.button_go_training);
+        final View unlockView = view.findViewById(R.id.unlock_view);
         final Button validateCodeButton = view.findViewById(R.id.button_validate_code);
         final EditText codeEditText = view.findViewById(R.id.edit_text_code_input);
         Database database = new Database();
-        if (!appPreferences.contains(PREF_APP_UNLOCKED) && !appPreferences.getBoolean(PREF_APP_UNLOCKED,false)) {
-            showLockedMode(validateCodeButton, codeEditText, appPreferences, goTrainingButton, database);
+        if (SafetyAccess.getInstance().hasAccessToContent(this.requireActivity())) {
+            showUnlockedMode(unlockView, database);
         } else {
-            showUnlockedMode(validateCodeButton, codeEditText, database);
+            showLockedMode(unlockView, validateCodeButton, codeEditText, goTrainingButton, database);
         }
 
         final Spinner levelSpinner = view.findViewById(R.id.spinner_level);
@@ -95,27 +95,36 @@ public class ChooseTrainingFragment extends Fragment implements Database.Initiat
             NavHostFragment.findNavController(ChooseTrainingFragment.this).navigate(R.id.nav_home_to_question, bundle);
         });
     }
-    private void showUnlockedMode(Button validateCodeButton, EditText codeEditText, Database database) {
-        validateCodeButton.setVisibility(View.INVISIBLE);
-        codeEditText.setVisibility(View.INVISIBLE);
+    private void showUnlockedMode(View unlockView, Database database) {
+        unlockView.setVisibility(View.INVISIBLE);
         database.init(this, requireContext());
     }
-    private void showLockedMode(Button validateCodeButton, EditText codeEditText, SharedPreferences appPreferences, Button goTrainingButton, Database database) {
+    private void showLockedMode(View unlockView, Button validateCodeButton, EditText codeEditText, Button goTrainingButton, Database database) {
         validateCodeButton.setOnClickListener(buttonView -> {
-            if (codeEditText.getText().toString().equals(BuildConfig.OPEN_KEY)) {
-                appPreferences.edit().putBoolean(PREF_APP_UNLOCKED, true).apply();
-                showUnlockedMode(validateCodeButton, codeEditText, database);
+            String inputCode = codeEditText.getText().toString();
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_WEEK, SafetyAccess.DELAY_ALLOWED_BY_CODE);
+            if (SafetyAccess.getInstance().accept(this.requireActivity(), inputCode, calendar.getTime())) {
+                Toast.makeText(this.requireContext(), R.string.content_unlocked, Toast.LENGTH_LONG).show();
+                showUnlockedMode(unlockView, database);
             } else {
                 Toast.makeText(getContext(), R.string.home_invalid_unlock_code, Toast.LENGTH_SHORT).show();
             }
         });
-        validateCodeButton.setVisibility(View.VISIBLE);
-        codeEditText.setVisibility(View.VISIBLE);
+        TextView practiceAdviceTextView = requireActivity().findViewById(R.id.text_training_practice_warning);
+        practiceAdviceTextView.setOnLongClickListener(null);
+        unlockView.setVisibility(View.VISIBLE);
         goTrainingButton.setVisibility(View.INVISIBLE);
     }
     @Override
     public void loaded(Database database) {
         Button goTrainingButton = requireActivity().findViewById(R.id.button_go_training);
+        TextView practiceAdviceTextView = requireActivity().findViewById(R.id.text_training_practice_warning);
+        practiceAdviceTextView.setOnLongClickListener( textView -> {
+                    Toast.makeText(this.getContext(), this.getString(R.string.content_availability, SafetyAccess.getInstance().getEndValidityDate(this.requireActivity())), Toast.LENGTH_LONG).show();
+                    return true;
+                }
+        );
         requireActivity().runOnUiThread(() ->  goTrainingButton.setVisibility(View.VISIBLE));
         goTrainingButton.setOnLongClickListener(view -> {
             Toast.makeText(getContext(), database.getInitDescription(), Toast.LENGTH_SHORT).show();

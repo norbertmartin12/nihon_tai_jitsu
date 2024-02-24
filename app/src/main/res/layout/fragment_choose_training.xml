@@ -58,6 +58,7 @@
                     android:text="@string/keep_screen_on" />
 
                 <TextView
+                    android:id="@+id/text_training_practice_warning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
@@ -67,35 +68,45 @@
                     android:textSize="14sp" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/unlock_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_marginHorizontal="16dp"
-                    android:orientation="horizontal">
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edit_text_code_input"
+                    android:layout_marginVertical="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@string/unlock_process"
                         android:layout_marginVertical="8dp"
-                        android:textAlignment="textStart"
-                        android:hint="@string/unlock_code"
-                        android:layout_weight="1"
-                        style="@style/ColoredSwitch"/>
-                    <Button
-                        android:id="@+id/button_validate_code"
-                        style="@style/ColoredButton"
+                        />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="8dp"
-                        android:text="@string/validate"
-                        android:layout_weight="2"/>
-
+                        android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/edit_text_code_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:textAlignment="textStart"
+                            android:hint="@string/unlock_code"
+                            android:layout_weight="1"
+                            style="@style/ColoredSwitch"/>
+                        <Button
+                            android:id="@+id/button_validate_code"
+                            style="@style/ColoredButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:text="@string/validate"
+                            android:layout_weight="2"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
-
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.core.widget.NestedScrollView>
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 
     <Button
         android:id="@+id/button_go_training"
