@@ -227,7 +227,7 @@ public class Database {
         localQuestionList.add(new Question(5,Level.YELLOW,Type.PRACTICE,"Base 5 par atemi","","","https://www.nihon-tai-jitsu.fr/video-app/005.mp4"));
         localQuestionList.add(new Question(6,Level.YELLOW,Type.PRACTICE,"Base 6 par atemi","","","https://www.nihon-tai-jitsu.fr/video-app/006.mp4"));
         localQuestionList.add(new Question(7,Level.YELLOW,Type.PRACTICE,"Base 7 par atemi","","","https://www.nihon-tai-jitsu.fr/video-app/007.mp4"));
-        localQuestionList.add(new Question(8,Level.YELLOW,Type.PRACTICE,"Base 8 par atemi ( (deux formes)","","","https://www.nihon-tai-jitsu.fr/video-app/008.mp4"));
+        localQuestionList.add(new Question(8,Level.YELLOW,Type.PRACTICE,"Base 8 par atemi (deux formes)","","","https://www.nihon-tai-jitsu.fr/video-app/008.mp4"));
         localQuestionList.add(new Question(9,Level.YELLOW,Type.PRACTICE,"Faire son noeud de ceinture","","","https://www.nihon-tai-jitsu.fr/video-app/009.mp4"));
         localQuestionList.add(new Question(10,Level.YELLOW,Type.PRACTICE,"Salut debout","","","https://www.nihon-tai-jitsu.fr/video-app/010.mp4"));
         localQuestionList.add(new Question(11,Level.YELLOW,Type.PRACTICE,"Position ZENKUTSU DACHI","","","https://www.nihon-tai-jitsu.fr/video-app/011.mp4"));
