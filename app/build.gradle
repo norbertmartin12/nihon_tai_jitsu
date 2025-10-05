@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id "com.android.application"
 }
 
 def apikeyPropertiesFile = rootProject.file("apikey.properties")
@@ -8,43 +8,50 @@ apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
 
-    namespace 'org.ntj_workout'
-    buildToolsVersion = '34.0.0'
-    compileSdk 34
+    namespace = "org.ntj_workout"
+    buildToolsVersion = "36.0.0"
+    compileSdk = 36
 
     defaultConfig {
         applicationId "org.ntj_workout"
         minSdkVersion 24
-        targetSdkVersion 34
-        versionCode 18
-        versionName "1.4"
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        targetSdk 36
+        versionCode 19
+        versionName = "1.5"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "OPEN_KEY", apikeyProperties['OPEN_KEY'])
+        buildConfigField("String", "OPEN_KEY", apikeyProperties["OPEN_KEY"])
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+    /* compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }*/
     buildFeatures {
-        buildConfig true
+        buildConfig = true
     }
 }
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment:2.7.7'
-    implementation 'androidx.navigation:navigation-ui:2.7.7'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+    implementation "androidx.appcompat:appcompat:1.7.1"
+    implementation "com.google.android.material:material:1.13.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.2.1"
+    implementation "androidx.navigation:navigation-fragment:2.9.5"
+    implementation "androidx.navigation:navigation-ui:2.9.5"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    implementation(
+            platform("org.jetbrains.kotlin:kotlin-bom:2.2.20")
+    )
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
