@@ -16,8 +16,8 @@ android {
         applicationId "org.ntj_workout"
         minSdkVersion 24
         targetSdk 36
-        versionCode 19
-        versionName = "1.5"
+        versionCode 20
+        versionName = "1.5.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "OPEN_KEY", apikeyProperties["OPEN_KEY"])
